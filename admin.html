@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>এডমিন প্যানেল - নতুন দিগন্ত </title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: #f5f7f6;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #007b5e;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    form {
+      background: #fff;
+      max-width: 600px;
+      width: 100%;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 123, 94, 0.2);
+      margin-bottom: 40px;
+    }
+    form .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    form label {
+      flex: 1 1 150px;
+      font-weight: 600;
+      color: #2c7a7b;
+      padding-top: 10px;
+    }
+    form input, form button {
+      flex: 3 1 300px;
+      padding: 10px 12px;
+      border: 1.8px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    form input:focus {
+      border-color: #2c7a7b;
+      outline: none;
+      box-shadow: 0 0 8px #2c7a7baa;
+    }
+    button {
+      background-color: #007b5e;
+      color: white;
+      padding: 13px 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005c46;
+    }
+    .member-list {
+      max-width: 700px;
+      width: 100%;
+    }
+    .member-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      transition: box-shadow 0.3s ease;
+    }
+    .member-card:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .member-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007b5e;
+      margin-right: 20px;
+      flex-shrink: 0;
+      background: #ddd;
+    }
+    .member-info {
+      flex: 1;
+      font-size: 1rem;
+      color: #2c7a7b;
+    }
+    .member-info p {
+      margin: 3px 0;
+    }
+    .member-info strong {
+      color: #004f4f;
+      width: 120px;
+      display: inline-block;
+    }
+    .delete-btn {
+      background-color: #e53e3e;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.25s ease;
+      flex-shrink: 0;
+    }
+    .delete-btn:hover {
+      background-color: #9b2c2c;
+    }
+    .back-link {
+      margin-top: 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #007b5e;
+    }
+    .back-link a {
+      color: #007b5e;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .back-link a:hover {
+      border-color: #007b5e;
+    }
+    /* Login form styling */
+    #loginForm {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 123, 94, 0.2);
+    }
+    #loginForm label {
+      display: block;
+      font-weight: 700;
+      color: #007b5e;
+      margin-bottom: 10px;
+    }
+    #loginForm input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.8px solid #cbd5e0;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+    #loginForm input:focus {
+      border-color: #2c7a7b;
+      outline: none;
+      box-shadow: 0 0 8px #2c7a7baa;
+    }
+    #loginForm button {
+      background-color: #007b5e;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 12px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    #loginForm button:hover {
+      background-color: #005c46;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>এডমিন প্যানেল - নতুন দিগন্ত সংগঠন</h1>
+
+  <!-- Login Form -->
+  <form id="loginForm">
+    <label for="passwordInput">পাসওয়ার্ড দিন</label>
+    <input type="password" id="passwordInput" placeholder="পাসওয়ার্ড" required />
+    <button type="submit">লগইন</button>
+  </form>
+
+  <!-- Admin Form -->
+  <form id="memberForm" style="display:none;">
+    <div class="input-group">
+      <label for="name">নাম</label>
+      <input type="text" id="name" placeholder="নাম লিখুন" required />
+    </div>
+    <div class="input-group">
+      <label for="father">পিতার নাম</label>
+      <input type="text" id="father" placeholder="পিতার নাম লিখুন" required />
+    </div>
+    <div class="input-group">
+      <label for="mother">মাতার নাম</label>
+      <input type="text" id="mother" placeholder="মাতার নাম লিখুন" required />
+    </div>
+    <div class="input-group">
+      <label for="nid">এনআইডি নং</label>
+      <input type="text" id="nid" placeholder="এনআইডি নম্বর" required pattern="\d+" title="শুধুমাত্র সংখ্যা লিখুন" />
+    </div>
+    <div class="input-group">
+      <label for="mobile">মোবাইল</label>
+      <input type="tel" id="mobile" placeholder="০১৭XXXXXXXX" required pattern="01[3-9]\d{8}" title="বাংলাদেশ মোবাইল নম্বর দিন" />
+    </div>
+    <div class="input-group">
+      <label for="address">ঠিকানা</label>
+      <input type="text" id="address" placeholder="ঠিকানা লিখুন" required />
+    </div>
+    <div class="input-group">
+      <label for="memberNo">সদস্য নং</label>
+      <input type="text" id="memberNo" placeholder="সদস্য নম্বর" required />
+    </div>
+    <div class="input-group">
+      <label for="imageFile">ছবি নির্বাচন করুন</label>
+      <input type="file" id="imageFile" accept="image/*" />
+    </div>
+    <button type="submit">সদস্য যোগ করুন</button>
+  </form>
+
+  <div class="member-list" id="memberList" style="max-width:700px; width:100%;"></div>
+
+  <div class="back-link" style="display:none;">
+    <a href="index.html">← পাবলিক পেজে যান</a>
+  </div>
+
+<script>
+  const PASSWORD = "Habib7070##@@"; // আপনার পাসওয়ার্ড এখানে দিন
+
+  const loginForm = document.getElementById('loginForm');
+  const memberForm = document.getElementById('memberForm');
+  const memberList = document.getElementById('memberList');
+  const backLink = document.querySelector('.back-link');
+
+  // মেম্বার লিস্ট লোকালস্টোরেজ থেকে লোড
+  let members = JSON.parse(localStorage.getItem('members')) || [];
+
+  // পাসওয়ার্ড চেক এবং এডমিন প্যানেল দেখানো
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const passInput = document.getElementById('passwordInput').value;
+    if(passInput === PASSWORD){
+      loginForm.style.display = 'none';
+      memberForm.style.display = 'block';
+      backLink.style.display = 'block';
+      renderMembers();
+    } else {
+      alert('ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।');
+    }
+  });
+
+  // ডাটা সেভ করার ফাংশন
+  function saveMembers() {
+    localStorage.setItem('members', JSON.stringify(members));
+  }
+
+  // মেম্বার কার্ড রেন্ডার
+  function renderMembers() {
+    memberList.innerHTML = '';
+
+    if(members.length === 0) {
+      memberList.innerHTML = '<p style="text-align:center; color:#666;">কোনো সদস্য নেই।</p>';
+      return;
+    }
+
+    members.forEach((m, index) => {
+      const card = document.createElement('div');
+      card.className = 'member-card';
+
+      const img = document.createElement('img');
+      img.className = 'member-img';
+      img.src = m.image || 'https://via.placeholder.com/90?text=No+Image';
+      img.alt = m.name;
+
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'member-info';
+      infoDiv.innerHTML = `
+        <p><strong>নাম:</strong> ${m.name}</p>
+        <p><strong>পিতার নাম:</strong> ${m.father}</p>
+        <p><strong>মাতার নাম:</strong> ${m.mother}</p>
+        <p><strong>এনআইডি নং:</strong> ${m.nid}</p>
+        <p><strong>মোবাইল:</strong> ${m.mobile}</p>
+        <p><strong>ঠিকানা:</strong> ${m.address}</p>
+        <p><strong>সদস্য নং:</strong> ${m.memberNo}</p>
+      `;
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = 'মুছুন';
+      delBtn.addEventListener('click', () => {
+        if(confirm('আপনি কি নিশ্চিতভাবে সদস্য মুছে ফেলতে চান?')) {
+          members.splice(index, 1);
+          saveMembers();
+          renderMembers();
+        }
+      });
+
+      card.appendChild(img);
+      card.appendChild(infoDiv);
+      card.appendChild(delBtn);
+
+      memberList.appendChild(card);
+    });
+  }
+
+  // ছবি ফাইল থেকে base64 এ কনভার্ট করার ফাংশন
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // ফর্ম সাবমিট হ্যান্ডলার
+  memberForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const father = document.getElementById('father').value.trim();
+    const mother = document.getElementById('mother').value.trim();
+    const nid = document.getElementById('nid').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const memberNo = document.getElementById('memberNo').value.trim();
+    const imageFile = document.getElementById('imageFile').files[0];
+
+    // মোবাইল ও এনআইডি শর্ত যাচাই (সিম্পল)
+    if(!/^\d+$/.test(nid)) {
+      alert('সঠিক এনআইডি নম্বর দিন।');
+      return;
+    }
+    if(!/^01[3-9]\d{8}$/.test(mobile)) {
+      alert('বাংলাদেশ মোবাইল নম্বর দিন (০১৭xxxxxxxx)।');
+      return;
+    }
+
+    let imageBase64 = '';
+    if(imageFile){
+      try {
+        imageBase64 = await getBase64(imageFile);
+      } catch {
+        alert('ছবি লোড করতে সমস্যা হয়েছে।');
+        return;
+      }
+    }
+
+    const newMember = {
+      name, father, mother, nid, mobile, address, memberNo,
+      image: imageBase64
+    };
+
+    members.push(newMember);
+    saveMembers();
+    renderMembers();
+
+    memberForm.reset();
+    document.getElementById('name').focus();
+  });
+
+</script>
+
+</body>
+</html>
